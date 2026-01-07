@@ -104,12 +104,15 @@ def normalizar(txt):
 
 def buscar_limite_legal(analise, limites):
     nome = normalizar(analise)
+
     for chave, limite in limites.items():
         chave_norm = normalizar(chave)
-        if all(p in nome for p in chave_norm.split()):
-            return limite
-    return None
 
+        # Correspondência flexível (contém OU é contido)
+        if chave_norm in nome or nome in chave_norm:
+            return limite
+
+    return None
 
 def avaliar_conformidade(analise, valor, limites):
     limite = buscar_limite_legal(analise, limites)
@@ -159,3 +162,4 @@ def processar_pdfs(pdfs, limites, nome_legislacao):
     df_final["Legislação"] = nome_legislacao
 
     return df_final
+
