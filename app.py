@@ -46,7 +46,7 @@ pdfs = st.file_uploader(
 # =========================
 def gerar_excel(df):
     buffer = BytesIO()
-    with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+    with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
         df.to_excel(writer, index=False, sheet_name="Comparativo")
     buffer.seek(0)
     return buffer
@@ -88,3 +88,4 @@ if pdfs and len(pdfs) == 2:
 
 else:
     st.info("ℹ️ Envie exatamente DOIS arquivos PDF para iniciar a comparação.")
+
